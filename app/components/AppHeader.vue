@@ -1,3 +1,4 @@
+
 <template>
   <v-app-bar
     class="site-header"
@@ -6,17 +7,11 @@
     height="82"
   >
     <v-container class="header-inner">
-
       <!-- BRAND LOGO -->
-      <NuxtLink
-        class="brand"
-        to="/"
-        aria-label="MindCast home"
-      >
+      <NuxtLink class="brand" to="/" aria-label="MindCast home">
         <span class="brand-mark">
           <v-icon>mdi-waveform</v-icon>
         </span>
-
         <span class="brand-name">
           mind<span>cast</span>
           <small>FINAL EXAMINATION IN WEB DEVELOPMENT</small>
@@ -26,21 +21,10 @@
       <v-spacer />
 
       <!-- DESKTOP NAVIGATION -->
-      <nav
-        aria-label="Main navigation"
-        class="desktop-navigation"
-      >
-        <NuxtLink to="/" exact-active-class="active-link">
-          Home
-        </NuxtLink>
-
-        <NuxtLink to="/about" active-class="active-link">
-          About
-        </NuxtLink>
-
-        <NuxtLink to="/contact" active-class="active-link">
-          Contact
-        </NuxtLink>
+      <nav aria-label="Main navigation" class="desktop-navigation">
+        <NuxtLink to="/" exact-active-class="active-link">Home</NuxtLink>
+        <NuxtLink to="/about" active-class="active-link">About</NuxtLink>
+        <NuxtLink to="/contact" active-class="active-link">Contact</NuxtLink>
       </nav>
 
       <!-- PRODUCTS BUTTON -->
@@ -50,9 +34,7 @@
         rounded="0"
         variant="outlined"
       >
-        <v-icon start size="17">
-          mdi-shopping-outline
-        </v-icon>
+        <v-icon start size="17">mdi-shopping-outline</v-icon>
         Products
       </v-btn>
 
@@ -64,12 +46,10 @@
         variant="outlined"
       >
         Let's talk
-        <v-icon end size="17">
-          mdi-arrow-top-right
-        </v-icon>
+        <v-icon end size="17">mdi-arrow-top-right</v-icon>
       </v-btn>
 
-      <!-- PROFILE ICON: VISIBLE AFTER LOGIN -->
+      <!-- PROFILE ICON -->
       <v-menu
         v-if="isLoggedIn"
         location="bottom end"
@@ -82,10 +62,7 @@
             class="profile-button"
             aria-label="Open profile menu"
           >
-            <v-avatar
-              size="38"
-              class="profile-avatar"
-            >
+            <v-avatar size="38" class="profile-avatar">
               {{ userInitial }}
             </v-avatar>
           </v-btn>
@@ -98,35 +75,22 @@
         >
           <v-card-text class="pa-4">
             <div class="profile-info">
-              <v-avatar
-                size="48"
-                class="profile-avatar mb-3"
-              >
+              <v-avatar size="48" class="profile-avatar mb-3">
                 {{ userInitial }}
               </v-avatar>
-
-              <div class="profile-name">
-                {{ userName }}
-              </div>
-
-              <div class="profile-email">
-                {{ userEmail }}
-              </div>
+              <div class="profile-name">{{ userName }}</div>
+              <div class="profile-email">{{ userEmail }}</div>
             </div>
           </v-card-text>
 
           <v-divider />
 
-          <v-list
-            class="profile-list"
-            density="comfortable"
-          >
+          <v-list class="profile-list" density="comfortable">
             <v-list-item
               prepend-icon="mdi-account-circle-outline"
               title="My Profile"
               @click="openProfileDialog"
             />
-
             <v-list-item
               prepend-icon="mdi-logout"
               title="Log Out"
@@ -138,10 +102,7 @@
       </v-menu>
 
       <!-- HAMBURGER MENU -->
-      <v-menu
-        location="bottom end"
-        offset="12"
-      >
+      <v-menu location="bottom end" offset="12">
         <template #activator="{ props }">
           <v-btn
             v-bind="props"
@@ -150,24 +111,36 @@
             aria-label="Open navigation menu"
             class="hamburger-button"
           >
-            <v-icon size="26">
-              mdi-menu
-            </v-icon>
+            <v-icon size="26">mdi-menu</v-icon>
           </v-btn>
         </template>
 
-        <v-list
-          class="hamburger-dropdown"
-          min-width="220"
-        >
+        <v-list class="hamburger-dropdown" min-width="220">
           <!-- MOBILE NAVIGATION LINKS -->
-          <div class="dropdown-heading">
-            ACCOUNT
-          </div>
+          <div class="dropdown-heading">NAVIGATION</div>
 
-     
+          <v-list-item
+            to="/"
+            prepend-icon="mdi-home-outline"
+            title="Home"
+            exact
+          />
+
+          <v-list-item
+            to="/about"
+            prepend-icon="mdi-information-outline"
+            title="About"
+          />
+
+          <v-list-item
+            to="/contact"
+            prepend-icon="mdi-email-outline"
+            title="Contact"
+          />
 
           <v-divider class="my-2" />
+
+          <div class="dropdown-heading">ACCOUNT</div>
 
           <!-- LOGIN / SIGN UP -->
           <template v-if="!isLoggedIn">
@@ -179,16 +152,13 @@
             />
           </template>
 
-          <!-- ACCOUNT OPTIONS WHEN LOGGED IN -->
+          <!-- ACCOUNT OPTIONS -->
           <template v-else>
-           
-
             <v-list-item
               title="My Profile"
               prepend-icon="mdi-account-circle-outline"
               @click="openProfileDialog"
             />
-
             <v-list-item
               title="Log Out"
               prepend-icon="mdi-logout"
@@ -198,19 +168,12 @@
           </template>
         </v-list>
       </v-menu>
-
     </v-container>
   </v-app-bar>
 
-
   <!-- LOGIN / SIGN UP DIALOG -->
-  <v-dialog
-    v-model="authDialog"
-    max-width="440"
-  >
+  <v-dialog v-model="authDialog" max-width="440">
     <v-card class="auth-dialog-card">
-
-      <!-- CLOSE BUTTON -->
       <div class="dialog-close">
         <v-btn
           icon="mdi-close"
@@ -220,24 +183,14 @@
         />
       </div>
 
-      <!-- AUTH HEADER -->
       <div class="auth-heading">
         <div class="auth-logo">
-          <v-icon size="27">
-            mdi-waveform
-          </v-icon>
+          <v-icon size="27">mdi-waveform</v-icon>
         </div>
-
-        <h2>
-          Welcome to <span>mindcast</span>
-        </h2>
-
-        <p>
-          Your productivity journey starts here.
-        </p>
+        <h2>Welcome to <span>mindcast</span></h2>
+        <p>Your productivity journey starts here.</p>
       </div>
 
-      <!-- LOGIN / SIGNUP TABS -->
       <v-tabs
         v-model="authTab"
         class="auth-tabs"
@@ -245,27 +198,19 @@
         color="primary"
         slider-color="primary"
       >
-        <v-tab value="login">
-          Log In
-        </v-tab>
-
-        <v-tab value="signup">
-          Sign Up
-        </v-tab>
+        <v-tab value="login">Log In</v-tab>
+        <v-tab value="signup">Sign Up</v-tab>
       </v-tabs>
 
       <v-card-text class="auth-form-content">
-
         <!-- LOGIN FORM -->
         <div v-if="authTab === 'login'">
           <h3>Welcome back!</h3>
-
           <p class="auth-subtitle">
             Log in to your MindCast account.
           </p>
 
           <v-form @submit.prevent="login">
-
             <v-text-field
               v-model="loginEmail"
               label="Email Address"
@@ -284,9 +229,7 @@
               placeholder="Enter your password"
               :type="showPassword ? 'text' : 'password'"
               prepend-inner-icon="mdi-lock-outline"
-              :append-inner-icon="
-                showPassword ? 'mdi-eye-off' : 'mdi-eye'
-              "
+              :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
               @click:append-inner="showPassword = !showPassword"
               variant="outlined"
               density="comfortable"
@@ -308,28 +251,22 @@
             >
               Log In
             </v-btn>
-
           </v-form>
 
           <p class="auth-switch">
             Don't have an account?
-
-            <button @click="switchAuthTab('signup')">
-              Sign Up
-            </button>
+            <button @click="switchAuthTab('signup')">Sign Up</button>
           </p>
         </div>
 
         <!-- SIGN UP FORM -->
         <div v-else>
           <h3>Create your account</h3>
-
           <p class="auth-subtitle">
             Join the MindCast community.
           </p>
 
           <v-form @submit.prevent="signup">
-
             <v-text-field
               v-model="signupName"
               label="Full Name"
@@ -359,9 +296,7 @@
               placeholder="Create a password"
               :type="showPassword ? 'text' : 'password'"
               prepend-inner-icon="mdi-lock-outline"
-              :append-inner-icon="
-                showPassword ? 'mdi-eye-off' : 'mdi-eye'
-              "
+              :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
               @click:append-inner="showPassword = !showPassword"
               variant="outlined"
               density="comfortable"
@@ -383,30 +318,20 @@
             >
               Create Account
             </v-btn>
-
           </v-form>
 
           <p class="auth-switch">
             Already have an account?
-
-            <button @click="switchAuthTab('login')">
-              Log In
-            </button>
+            <button @click="switchAuthTab('login')">Log In</button>
           </p>
         </div>
-
       </v-card-text>
     </v-card>
   </v-dialog>
 
-
   <!-- MY PROFILE DIALOG -->
-  <v-dialog
-    v-model="profileDialog"
-    max-width="380"
-  >
+  <v-dialog v-model="profileDialog" max-width="380">
     <v-card class="auth-dialog-card pa-5">
-
       <div class="dialog-close">
         <v-btn
           icon="mdi-close"
@@ -417,13 +342,9 @@
       </div>
 
       <div class="profile-dialog-info">
-        <v-avatar
-          size="75"
-          class="profile-avatar mb-3"
-        >
+        <v-avatar size="75" class="profile-avatar mb-3">
           {{ userInitial }}
         </v-avatar>
-
         <h3>{{ userName }}</h3>
         <p>{{ userEmail }}</p>
       </div>
@@ -439,71 +360,43 @@
         <v-icon start>mdi-logout</v-icon>
         Log Out
       </v-btn>
-
     </v-card>
   </v-dialog>
-
 </template>
-
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
 
-
-// ======================================
 // AUTHENTICATION STATE
-// ======================================
-
 const authDialog = ref(false);
 const profileDialog = ref(false);
-
 const authTab = ref("login");
 const isLoggedIn = ref(false);
 
 const userName = ref("");
 const userEmail = ref("");
 
-
-// ======================================
 // LOGIN FORM
-// ======================================
-
 const loginEmail = ref("");
 const loginPassword = ref("");
 
-
-// ======================================
 // SIGN UP FORM
-// ======================================
-
 const signupName = ref("");
 const signupEmail = ref("");
 const signupPassword = ref("");
 
-
-// ======================================
 // OTHER STATES
-// ======================================
-
 const showPassword = ref(false);
 const authError = ref("");
 
-
-// ======================================
 // USER INITIAL
-// ======================================
-
 const userInitial = computed(() => {
   return userName.value.trim()
     ? userName.value.trim().charAt(0).toUpperCase()
     : "?";
 });
 
-
-// ======================================
 // VALIDATION
-// ======================================
-
 const requiredRule = (value: string) =>
   Boolean(value?.trim()) || "This field is required.";
 
@@ -515,11 +408,7 @@ const passwordRule = (value: string) =>
   value.length >= 6 ||
   "Password must be at least 6 characters.";
 
-
-// ======================================
 // OPEN LOGIN / SIGNUP
-// ======================================
-
 function openAuthDialog(tab = "login") {
   authTab.value = tab;
   authError.value = "";
@@ -533,11 +422,7 @@ function switchAuthTab(tab: string) {
   showPassword.value = false;
 }
 
-
-// ======================================
 // SIGN UP
-// ======================================
-
 function signup() {
   authError.value = "";
 
@@ -582,11 +467,7 @@ function signup() {
   authDialog.value = false;
 }
 
-
-// ======================================
 // LOGIN
-// ======================================
-
 function login() {
   authError.value = "";
 
@@ -599,7 +480,6 @@ function login() {
 
   try {
     const account = JSON.parse(savedAccount);
-
     const enteredEmail = loginEmail.value.trim().toLowerCase();
 
     if (
@@ -614,19 +494,13 @@ function login() {
 
     loginEmail.value = "";
     loginPassword.value = "";
-
     authDialog.value = false;
-
   } catch {
     authError.value = "Unable to read account information.";
   }
 }
 
-
-// ======================================
 // SET LOGGED-IN USER
-// ======================================
-
 function setLoggedInUser(account: {
   name: string;
   email: string;
@@ -644,14 +518,9 @@ function setLoggedInUser(account: {
   );
 }
 
-
-// ======================================
 // LOG OUT
-// ======================================
-
 function logout() {
   isLoggedIn.value = false;
-
   userName.value = "";
   userEmail.value = "";
 
@@ -661,20 +530,12 @@ function logout() {
   profileDialog.value = false;
 }
 
-
-// ======================================
 // PROFILE
-// ======================================
-
 function openProfileDialog() {
   profileDialog.value = true;
 }
 
-
-// ======================================
 // LOAD SAVED SESSION
-// ======================================
-
 onMounted(() => {
   const savedUser = localStorage.getItem("mindcast-user");
 
@@ -688,16 +549,13 @@ onMounted(() => {
       userEmail.value = user.email;
       isLoggedIn.value = true;
     }
-
   } catch {
     localStorage.removeItem("mindcast-user");
   }
 });
 </script>
 
-
 <style scoped>
-
 /* HEADER */
 .site-header {
   position: sticky !important;
@@ -712,7 +570,6 @@ onMounted(() => {
   align-items: center;
   padding: 0 24px;
 }
-
 
 /* BRAND */
 .brand {
@@ -761,7 +618,6 @@ onMounted(() => {
   letter-spacing: 0.13em;
 }
 
-
 /* DESKTOP NAVIGATION */
 .desktop-navigation {
   display: flex;
@@ -793,7 +649,6 @@ onMounted(() => {
   content: "";
 }
 
-
 /* PRODUCTS */
 .header-products {
   min-height: 39px;
@@ -809,7 +664,6 @@ onMounted(() => {
   border-color: #34e6b5;
 }
 
-
 /* LET'S TALK */
 .header-cta {
   min-height: 39px;
@@ -820,7 +674,6 @@ onMounted(() => {
   letter-spacing: 0;
 }
 
-
 /* HAMBURGER */
 .hamburger-button {
   margin-left: 3px;
@@ -830,7 +683,6 @@ onMounted(() => {
 .hamburger-button:hover {
   color: #34e6b5;
 }
-
 
 /* HAMBURGER DROPDOWN */
 .hamburger-dropdown {
@@ -863,7 +715,6 @@ onMounted(() => {
 .logout-item {
   color: #ff8585;
 }
-
 
 /* PROFILE BUTTON */
 .profile-button {
@@ -924,7 +775,6 @@ onMounted(() => {
   color: #8eaaa0;
   font-size: 0.8rem;
 }
-
 
 /* AUTH DIALOG */
 .auth-dialog-card {
@@ -1050,7 +900,6 @@ onMounted(() => {
   text-decoration: underline;
 }
 
-
 /* MOBILE */
 @media (max-width: 900px) {
   .header-inner {
@@ -1116,5 +965,4 @@ onMounted(() => {
     font-size: 0.62rem;
   }
 }
-
 </style>
